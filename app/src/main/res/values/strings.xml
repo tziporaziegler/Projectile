@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ZieglerProjectile</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="time">Time</string>
+    <string name="calculate">Calculate</string>
+    <string name="velocity">Velocity</string>
+    <string name="angle">Angle</string>
+</resources>
