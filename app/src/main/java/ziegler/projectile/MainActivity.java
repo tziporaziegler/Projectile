@@ -7,10 +7,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
-import java.util.Formatter;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
     EditText angleText;
@@ -18,29 +18,7 @@ public class MainActivity extends AppCompatActivity {
     EditText timeText;
     Button calculateButton;
     TextView answerView;
-
-    private double angle;
-    private double velocity;
-    private double time;
-    private double radians;
-
-    private DecimalFormat formatter = new DecimalFormat("#,##0.##");
-
-    public String getX() {
-        return formatter.format(Math.sin(radians) * velocity * time);
-    }
-
-    public String getY() {
-        return formatter.format(Math.cos(radians) * velocity * time - (.5 * 9.8 * time * time));
-    }
-
-    public double getTime(){
-        return time;
-    }
-
-    public void setTime() {
-        time += 0.1;
-    }
+    ImageView pic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,19 +29,21 @@ public class MainActivity extends AppCompatActivity {
         velocityText = (EditText) findViewById(R.id.velocity);
         timeText = (EditText) findViewById(R.id.time);
         answerView = (TextView) findViewById(R.id.answer);
+        pic = (ImageView) findViewById(R.id.pic);
 
         calculateButton = (Button) findViewById(R.id.calculate);
-        calculateButton.setOnClickListener(new View.OnClickListener(){
+        calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                angle = Double.valueOf(angleText.getText().toString());
-                velocity = Double.valueOf(velocityText.getText().toString());
-                time = Double.valueOf(timeText.getText().toString());
-                radians = Math.toRadians(angle);
-                String answer = "(" + getX() + ", " + getY() + ")";
+                Projectile proj = new Projectile(Double.valueOf(angleText.getText().toString()),
+                        Double.valueOf(velocityText.getText().toString()),
+                        Double.valueOf(timeText.getText().toString()));
+                String answer = "(" + proj.getX() + ", " + proj.getY() + ")";
                 answerView.setText(answer);
             }
         });
+
+        Picasso.with(this).load("https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Ideal_projectile_motion_for_different_angles.svg/350px-Ideal_projectile_motion_for_different_angles.svg.png").into(pic);
     }
 
     @Override
