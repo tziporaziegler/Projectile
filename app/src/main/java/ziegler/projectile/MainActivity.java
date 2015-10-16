@@ -1,5 +1,6 @@
 package ziegler.projectile;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -35,16 +36,23 @@ public class MainActivity extends AppCompatActivity {
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Projectile proj = new Projectile(Double.valueOf(angleText.getText().toString()),
-                        Double.valueOf(velocityText.getText().toString()),
-                        Double.valueOf(timeText.getText().toString()));
-                String answer = "(" + proj.getX() + ", " + proj.getY() + ")";
-                answerView.setText(answer);
+                showAnswer();
             }
         });
 
         Picasso.with(this).load("https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Ideal_projectile_motion_for_different_angles.svg/350px-Ideal_projectile_motion_for_different_angles.svg.png").into(pic);
     }
+
+    private void showAnswer() {
+        Intent intent = new Intent(this, AnswerActivity.class);
+
+        intent.putExtra("ANGLE", angleText.getText());
+        intent.putExtra("VELOCITY", angleText.getText());
+        intent.putExtra("TIME", angleText.getText());
+
+        startActivity(intent);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
